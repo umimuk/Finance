@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界の相場ダッシュボード</title>
+  <meta name="description" content="世界の主要金融市場（為替・仮想通貨・株価指数）をリアルタイムで確認できるダッシュボード">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f5f5;
+      --surface: #ffffff;
+      --border: #e2e2e2;
+      --border-dark: #c8c8c8;
+      --text-primary: #111111;
+      --text-secondary: #555555;
+      --text-muted: #999999;
+      --up: #111111;
+      --down: #888888;
+      --skeleton: #e8e8e8;
+      --skeleton-shine: #f0f0f0;
+      --header-bg: #0a0a0a;
+      --header-text: #ffffff;
+      --nav-bg: #ffffff;
+      --accent: #222222;
+      --radius: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── 広告プレースホルダー ── */
+    .ad-banner {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      min-height: 60px;
+    }
+    .ad-banner-inner {
+      width: 100%;
+      max-width: 728px;
+      height: 60px;
+      background: #f0f0f0;
+      border: 1px dashed var(--border-dark);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 11px;
+      letter-spacing: .05em;
+    }
+
+    /* ── ヘッダー ── */
+    header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 20px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .site-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1;
+    }
+    .site-subtitle {
+      font-size: 11px;
+      color: #888;
+      font-weight: 300;
+      margin-top: 3px;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .last-update {
+      font-size: 11px;
+      color: #aaa;
+      font-weight: 300;
+    }
+    .last-update span { color: #ddd; font-weight: 400; }
+    .refresh-btn {
+      background: none;
+      border: 1px solid #444;
+      color: #ccc;
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color .2s, color .2s;
+      font-family: inherit;
+    }
+    .refresh-btn:hover { border-color: #888; color: #fff; }
+    .refresh-btn.loading .spin { animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spin { display: inline-block; }
+
+    /* ── ナビゲーション ── */
+    nav {
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+    }
+    .nav-link {
+      display: block;
+      padding: 13px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+      letter-spacing: .03em;
+    }
+    .nav-link:hover { color: var(--text-primary); border-bottom-color: var(--border-dark); }
+
+    /* ── メインコンテンツ ── */
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    /* ── セクション共通 ── */
+    .section { margin-bottom: 40px; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--text-primary);
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+    .section-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* ── カードグリッド ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    /* ── データカード ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      transition: box-shadow .2s;
+    }
+    .card:hover { box-shadow: var(--shadow-md); }
+    .card-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .flag { font-size: 14px; line-height: 1; }
+    .card-value {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -.03em;
+      color: var(--text-primary);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .card-value.small { font-size: 17px; }
+    .card-change {
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .card-change.up { color: var(--up); font-weight: 700; }
+    .card-change.down { color: var(--down); font-weight: 400; }
+    .card-meta {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      font-weight: 300;
+    }
+
+    /* 仮想通貨カード（横長） */
+    .crypto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .crypto-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: box-shadow .2s;
+    }
+    .crypto-card:hover { box-shadow: var(--shadow-md); }
+    .crypto-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: -.03em;
+    }
+    .crypto-info { flex: 1; min-width: 0; }
+    .crypto-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .crypto-symbol { font-size: 10px; color: var(--text-muted); font-weight: 300; }
+    .crypto-right { text-align: right; flex-shrink: 0; }
+    .crypto-price { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+    .crypto-change { font-size: 12px; font-weight: 500; }
+    .crypto-cap { font-size: 10px; color: var(--text-muted); font-weight: 300; margin-top: 1px; }
+
+    /* ── スケルトンUI ── */
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .skeleton-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+    }
+    .skel {
+      background: var(--skeleton);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .skel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, var(--skeleton-shine) 50%, transparent 100%);
+      animation: shimmer 1.4s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .skel-label { height: 10px; width: 60%; margin-bottom: 10px; }
+    .skel-value { height: 24px; width: 70%; margin-bottom: 8px; }
+    .skel-change { height: 12px; width: 40%; }
+
+    /* ── エラー表示 ── */
+    .error-box {
+      background: var(--surface);
+      border: 1px dashed var(--border-dark);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+    .error-box p { margin-bottom: 4px; }
+    .error-detail { font-size: 11px; color: #bbb; }
+
+    /* ── フッター ── */
+    footer {
+      background: var(--header-bg);
+      color: #777;
+      padding: 24px;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    footer a { color: #999; text-decoration: none; }
+    footer a:hover { color: #ccc; }
+
+    /* ── レスポンシブ ── */
+    @media (max-width: 600px) {
+      header { padding: 14px 16px; }
+      .site-title { font-size: 15px; }
+      .last-update { display: none; }
+      main { padding: 16px 12px 32px; }
+      .card-grid, .crypto-grid, .skeleton-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .card-value { font-size: 18px; }
+      .crypto-card { padding: 12px 14px; }
+    }
+    @media (max-width: 380px) {
+      .card-grid, .crypto-grid, .skeleton-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 上部広告 -->
+<div class="ad-banner">
+  <div class="ad-banner-inner">
+    <!-- AdSense code here -->
+    広告スペース (728×90)
+  </div>
+</div>
+
+<!-- ヘッダー -->
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="site-title">世界の相場ダッシュボード</div>
+      <div class="site-subtitle">Global Market Dashboard — 為替 / 仮想通貨 / 株価指数</div>
+    </div>
+    <div class="header-meta">
+      <div class="last-update">最終更新: <span id="last-update-time">--</span></div>
+      <button class="refresh-btn" id="refresh-btn" onclick="manualRefresh()">
+        <span class="spin" id="refresh-spin">↻</span> 更新
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ナビゲーション -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-link" href="#forex">為替レート</a>
+    <a class="nav-link" href="#crypto">仮想通貨</a>
+    <a class="nav-link" href="#asia">日本・アジア株</a>
+  </div>
+</nav>
+
+<!-- メインコンテンツ -->
+<main>
+
+  <!-- 為替レート -->
+  <section class="section" id="forex">
+    <div class="section-header">
+      <h2 class="section-title">為替レート</h2>
+      <span class="section-subtitle">Foreign Exchange</span>
+    </div>
+    <div id="forex-content">
+      <!-- skeleton -->
+      <div class="skeleton-grid" id="forex-skeleton">
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 仮想通貨 -->
+  <section class="section" id="crypto">
+    <div class="section-header">
+      <h2 class="section-title">仮想通貨</h2>
+      <span class="section-subtitle">Cryptocurrency</span>
+    </div>
+    <div id="crypto-content">
+      <div class="skeleton-grid" id="crypto-skeleton">
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 日本・アジア株価指数 -->
+  <section class="section" id="asia">
+    <div class="section-header">
+      <h2 class="section-title">日本・アジア株価指数</h2>
+      <span class="section-subtitle">Japan &amp; Asia Indices</span>
+    </div>
+    <div id="asia-content">
+      <div class="skeleton-grid" id="asia-skeleton">
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+        <div class="skeleton-card"><div class="skel skel-label"></div><div class="skel skel-value"></div><div class="skel skel-change"></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-inner">
+    <div>© 2025 世界の相場ダッシュボード — <a href="https://twitter.com/ito_money_ito" target="_blank" rel="noopener">@ito_money_ito</a></div>
+    <div>【免責事項】当サイトのデータは参考情報です。投資判断は自己責任でお願いします。データは遅延している場合があります。</div>
+    <div>データソース: <a href="https://open.er-api.com" target="_blank" rel="noopener">ExchangeRate-API</a> / <a href="https://www.coingecko.com" target="_blank" rel="noopener">CoinGecko</a> / Yahoo Finance</div>
+  </div>
+</footer>
+
+<!-- 下部広告 -->
+<div class="ad-banner" style="border-top:1px solid var(--border); border-bottom:none;">
+  <div class="ad-banner-inner">
+    <!-- AdSense code here -->
+    広告スペース (728×90)
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ─────────────────────────────────────────
+   定数・設定
+───────────────────────────────────────── */
+const REFRESH_INTERVAL = 600_000; // 10分
+let refreshTimer = null;
+let isLoading = false;
+
+// 前回レート保持（為替差分計算用）
+let prevForexRates = null;
+
+// 為替ペア定義: [表示名, 分子通貨, 分母通貨]
+// rates はJPYベース (1JPY = x 外貨) → USD/JPY = 1/rates.USD
+const FOREX_PAIRS = [
+  { label: 'USD / JPY', from: 'USD', to: 'JPY', desc: '米ドル / 日本円' },
+  { label: 'EUR / JPY', from: 'EUR', to: 'JPY', desc: 'ユーロ / 日本円' },
+  { label: 'GBP / JPY', from: 'GBP', to: 'JPY', desc: '英ポンド / 日本円' },
+  { label: 'AUD / JPY', from: 'AUD', to: 'JPY', desc: '豪ドル / 日本円' },
+];
+
+// 仮想通貨定義
+const CRYPTO_COINS = [
+  { id: 'bitcoin',      symbol: 'BTC', icon: '₿' },
+  { id: 'ethereum',     symbol: 'ETH', icon: 'Ξ' },
+  { id: 'ripple',       symbol: 'XRP', icon: 'X' },
+  { id: 'solana',       symbol: 'SOL', icon: 'S' },
+  { id: 'binancecoin',  symbol: 'BNB', icon: 'B' },
+];
+
+// 株価指数定義
+const ASIA_INDICES = [
+  { symbol: '^N225',    name: '日経 225',    flag: '🇯🇵', locale: 'ja-JP' },
+  { symbol: '^TOPX',    name: 'TOPIX',       flag: '🇯🇵', locale: 'ja-JP' },
+  { symbol: '000001.SS',name: '上海総合',    flag: '🇨🇳', locale: 'zh-CN' },
+  { symbol: '^HSI',     name: '香港ハンセン', flag: '🇭🇰', locale: 'zh-HK' },
+  { symbol: '^KS11',    name: 'KOSPI',       flag: '🇰🇷', locale: 'ko-KR' },
+  { symbol: '^TWII',    name: '台湾加権',    flag: '🇹🇼', locale: 'zh-TW' },
+  { symbol: '^BSESN',   name: 'SENSEX',      flag: '🇮🇳', locale: 'en-IN' },
+];
+
+/* ─────────────────────────────────────────
+   ユーティリティ
+───────────────────────────────────────── */
+function fmt(num, decimals = 2) {
+  if (num == null || isNaN(num)) return '--';
+  return num.toLocaleString('ja-JP', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+}
+
+function fmtLarge(num) {
+  if (num == null || isNaN(num)) return '--';
+  if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
+  if (num >= 1e9)  return (num / 1e9).toFixed(2) + 'B';
+  if (num >= 1e6)  return (num / 1e6).toFixed(2) + 'M';
+  return num.toLocaleString();
+}
+
+function changeClass(val) {
+  return val >= 0 ? 'up' : 'down';
+}
+
+function changeArrow(val) {
+  return val >= 0 ? '▲' : '▼';
+}
+
+function fmtChange(val, decimals = 2) {
+  if (val == null || isNaN(val)) return '--';
+  const sign = val >= 0 ? '+' : '';
+  return `${sign}${val.toFixed(decimals)}`;
+}
+
+function updateTimestamp() {
+  const el = document.getElementById('last-update-time');
+  if (!el) return;
+  const now = new Date();
+  el.textContent = now.toLocaleString('ja-JP', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit',
+  }) + ' JST';
+}
+
+/* ─────────────────────────────────────────
+   スケルトン / エラー表示
+───────────────────────────────────────── */
+function showSkeleton(sectionId) {
+  const skeleton = document.getElementById(`${sectionId}-skeleton`);
+  if (skeleton) skeleton.style.display = 'grid';
+}
+
+function clearContent(sectionId) {
+  const el = document.getElementById(`${sectionId}-content`);
+  if (el) el.innerHTML = '';
+}
+
+function showError(sectionId, msg, detail = '') {
+  const el = document.getElementById(`${sectionId}-content`);
+  if (!el) return;
+  el.innerHTML = `
+    <div class="error-box">
+      <p>⚠ ${msg}</p>
+      ${detail ? `<p class="error-detail">${detail}</p>` : ''}
+    </div>`;
+}
+
+/* ─────────────────────────────────────────
+   為替レート取得・描画
+───────────────────────────────────────── */
+async function fetchForex() {
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/JPY', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.result !== 'success') throw new Error('API error');
+    renderForex(data.rates);
+  } catch (err) {
+    console.warn('[Forex] fetch failed:', err);
+    showError('forex', 'データを取得できませんでした', 'ExchangeRate-API に接続できません');
+  }
+}
+
+function renderForex(rates) {
+  // rates: { USD: 0.00665, EUR: 0.00612, ... } (JPYベース: 1JPY = x 外貨)
+  // USD/JPY = 1 / rates.USD
+  const pairs = FOREX_PAIRS.map(pair => {
+    const rateKey = pair.from;
+    const rawRate = rates[rateKey];
+    if (!rawRate) return { ...pair, value: null, change: null };
+    const value = 1 / rawRate; // to JPY
+
+    let change = null;
+    if (prevForexRates && prevForexRates[rateKey]) {
+      const prevValue = 1 / prevForexRates[rateKey];
+      change = value - prevValue;
+    }
+    return { ...pair, value, change };
+  });
+
+  prevForexRates = { ...rates };
+
+  const el = document.getElementById('forex-content');
+  if (!el) return;
+
+  const html = `<div class="card-grid">${pairs.map(p => {
+    const changeHtml = p.change != null
+      ? `<span class="card-change ${changeClass(p.change)}">${changeArrow(p.change)} ${fmtChange(p.change)} 円</span>`
+      : `<span class="card-change" style="color:var(--text-muted)">— 前日比取得中</span>`;
+
+    return `
+      <div class="card">
+        <div class="card-label">${p.label}</div>
+        <div class="card-value">${p.value != null ? fmt(p.value, 2) + ' <small style="font-size:13px;font-weight:400;color:var(--text-muted)">円</small>' : '--'}</div>
+        ${changeHtml}
+        <div class="card-meta">${p.desc}</div>
+      </div>`;
+  }).join('')}</div>`;
+
+  el.innerHTML = html;
+}
+
+/* ─────────────────────────────────────────
+   仮想通貨取得・描画
+───────────────────────────────────────── */
+async function fetchCrypto() {
+  const ids = CRYPTO_COINS.map(c => c.id).join(',');
+  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h`;
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    renderCrypto(data);
+  } catch (err) {
+    console.warn('[Crypto] fetch failed:', err);
+    showError('crypto', 'データを取得できませんでした', 'CoinGecko API に接続できません');
+  }
+}
+
+function renderCrypto(coins) {
+  const el = document.getElementById('crypto-content');
+  if (!el) return;
+
+  const coinMap = {};
+  coins.forEach(c => { coinMap[c.id] = c; });
+
+  const html = `<div class="crypto-grid">${CRYPTO_COINS.map(def => {
+    const c = coinMap[def.id];
+    if (!c) return '';
+    const chg = c.price_change_percentage_24h;
+    const chgHtml = chg != null
+      ? `<div class="crypto-change ${changeClass(chg)}">${changeArrow(chg)} ${fmtChange(chg)}%</div>`
+      : `<div class="crypto-change" style="color:var(--text-muted)">--</div>`;
+
+    // USD価格のフォーマット
+    const price = c.current_price;
+    const priceStr = price >= 1
+      ? '$' + fmt(price, price >= 100 ? 0 : 2)
+      : '$' + price.toFixed(4);
+
+    return `
+      <div class="crypto-card">
+        <div class="crypto-icon">${def.icon}</div>
+        <div class="crypto-info">
+          <div class="crypto-name">${c.name}</div>
+          <div class="crypto-symbol">${def.symbol}</div>
+        </div>
+        <div class="crypto-right">
+          <div class="crypto-price">${priceStr}</div>
+          ${chgHtml}
+          <div class="crypto-cap">時価総額 $${fmtLarge(c.market_cap)}</div>
+        </div>
+      </div>`;
+  }).join('')}</div>`;
+
+  el.innerHTML = html;
+}
+
+/* ─────────────────────────────────────────
+   株価指数取得・描画
+───────────────────────────────────────── */
+async function fetchOneStock(symbol) {
+  const encoded = encodeURIComponent(symbol);
+  const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encoded}?interval=1d&range=2d`;
+  const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(directUrl)}`;
+
+  // まず直接アクセス、失敗したらプロキシ経由
+  for (const url of [directUrl, proxyUrl]) {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) continue;
+      const json = await res.json();
+      const meta = json?.chart?.result?.[0]?.meta;
+      if (!meta) continue;
+      return {
+        price: meta.regularMarketPrice,
+        prev:  meta.previousClose ?? meta.chartPreviousClose,
+        currency: meta.currency,
+      };
+    } catch (e) {
+      // try next
+    }
+  }
+  return null;
+}
+
+async function fetchStocks() {
+  const results = await Promise.allSettled(
+    ASIA_INDICES.map(idx => fetchOneStock(idx.symbol))
+  );
+
+  const el = document.getElementById('asia-content');
+  if (!el) return;
+
+  const cards = ASIA_INDICES.map((idx, i) => {
+    const result = results[i];
+    const data = result.status === 'fulfilled' ? result.value : null;
+
+    if (!data || data.price == null) {
+      return `
+        <div class="card">
+          <div class="card-label"><span class="flag">${idx.flag}</span> ${idx.name}</div>
+          <div class="card-value">--</div>
+          <div class="card-change" style="color:var(--text-muted); font-size:12px">データ取得不可</div>
+        </div>`;
+    }
+
+    const price = data.price;
+    const prev  = data.prev;
+    const change    = prev ? price - prev : null;
+    const changePct = prev ? ((price - prev) / prev) * 100 : null;
+
+    const changeHtml = change != null
+      ? `<span class="card-change ${changeClass(change)}">${changeArrow(change)} ${fmtChange(change, 0)} (${fmtChange(changePct)}%)</span>`
+      : `<span class="card-change" style="color:var(--text-muted)">--</span>`;
+
+    // 指数値は小数不要のものが多い
+    const decimals = price < 100 ? 2 : 0;
+
+    return `
+      <div class="card">
+        <div class="card-label"><span class="flag">${idx.flag}</span> ${idx.name}</div>
+        <div class="card-value ${price > 9999 ? 'small' : ''}">${fmt(price, decimals)}</div>
+        ${changeHtml}
+      </div>`;
+  });
+
+  el.innerHTML = `<div class="card-grid">${cards.join('')}</div>`;
+}
+
+/* ─────────────────────────────────────────
+   メイン初期化
+───────────────────────────────────────── */
+async function loadAll() {
+  if (isLoading) return;
+  isLoading = true;
+
+  // スケルトン表示
+  ['forex', 'crypto', 'asia'].forEach(id => {
+    const el = document.getElementById(`${id}-content`);
+    if (el) el.innerHTML = `
+      <div class="skeleton-grid">
+        ${Array(id === 'crypto' ? 5 : id === 'asia' ? 7 : 4).fill(`
+          <div class="skeleton-card">
+            <div class="skel skel-label"></div>
+            <div class="skel skel-value"></div>
+            <div class="skel skel-change"></div>
+          </div>`).join('')}
+      </div>`;
+  });
+
+  // 並列取得
+  await Promise.allSettled([fetchForex(), fetchCrypto(), fetchStocks()]);
+
+  updateTimestamp();
+  isLoading = false;
+}
+
+function manualRefresh() {
+  const btn = document.getElementById('refresh-btn');
+  if (btn) btn.classList.add('loading');
+  loadAll().finally(() => {
+    if (btn) btn.classList.remove('loading');
+  });
+}
+
+function init() {
+  loadAll();
+
+  // 自動更新タイマー
+  if (refreshTimer) clearInterval(refreshTimer);
+  refreshTimer = setInterval(loadAll, REFRESH_INTERVAL);
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
