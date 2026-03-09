@@ -524,9 +524,10 @@ function drawArea(canvasId, prices, isDown, prevClose = null) {
   if (!canvas) return false;
   if (CI[canvasId]) { CI[canvasId].destroy(); delete CI[canvasId]; }
 
+  const useFillBetween = isDown && prevClose != null;
   const datasets = [{
     data: prices,
-    fill: true,
+    fill: useFillBetween ? '+1' : true,
     borderColor:     isDown ? '#e07070' : '#4caf7d',
     borderWidth:     1.5,
     backgroundColor: isDown ? 'rgba(224,112,112,0.12)' : 'rgba(76,175,125,0.12)',
