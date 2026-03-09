@@ -20,16 +20,12 @@
       --text-primary: #111111;
       --text-secondary: #555555;
       --text-muted: #999999;
-      --up: #111111;
-      --down: #888888;
       --skeleton: #e8e8e8;
       --skeleton-shine: #f0f0f0;
       --header-bg: #0a0a0a;
-      --header-text: #ffffff;
-      --nav-bg: #ffffff;
       --radius: 8px;
       --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-      --shadow-md: 0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 8px rgba(0,0,0,.1);
     }
 
     body {
@@ -37,7 +33,7 @@
       background: var(--bg);
       color: var(--text-primary);
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -45,55 +41,38 @@
     .ad-banner {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 16px;
-      min-height: 60px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 8px 16px; min-height: 60px;
     }
     .ad-banner-inner {
-      width: 100%;
-      max-width: 728px;
-      height: 60px;
-      background: #f0f0f0;
-      border: 1px dashed var(--border-dark);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 11px;
-      letter-spacing: .05em;
+      width: 100%; max-width: 728px; height: 60px;
+      background: #f0f0f0; border: 1px dashed var(--border-dark);
+      border-radius: 4px; display: flex; align-items: center;
+      justify-content: center; color: var(--text-muted);
+      font-size: 11px; letter-spacing: .05em;
     }
 
     /* ── ヘッダー ── */
     header {
-      background: var(--header-bg);
-      color: var(--header-text);
-      padding: 18px 24px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      background: var(--header-bg); color: #fff;
+      padding: 16px 24px;
+      position: sticky; top: 0; z-index: 100;
       box-shadow: 0 2px 8px rgba(0,0,0,.3);
     }
     .header-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 12px; flex-wrap: wrap;
     }
-    .site-title { font-size: 18px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+    .site-title { font-size: 17px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
     .site-subtitle { font-size: 11px; color: #888; font-weight: 300; margin-top: 3px; }
     .header-meta { display: flex; align-items: center; gap: 14px; }
-    .last-update { font-size: 11px; color: #aaa; font-weight: 300; }
-    .last-update span { color: #ddd; font-weight: 400; }
+    .last-update { font-size: 11px; color: #aaa; }
+    .last-update span { color: #ddd; }
     .refresh-btn {
       background: none; border: 1px solid #444; color: #ccc;
       font-size: 11px; padding: 5px 12px; border-radius: 4px;
-      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      cursor: pointer; display: flex; align-items: center; gap: 5px;
       transition: border-color .2s, color .2s; font-family: inherit;
     }
     .refresh-btn:hover { border-color: #888; color: #fff; }
@@ -103,193 +82,172 @@
 
     /* ── タブナビ ── */
     nav {
-      background: var(--nav-bg);
+      background: var(--surface);
       border-bottom: 1px solid var(--border);
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      position: sticky;
-      top: 56px;
-      z-index: 90;
+      position: sticky; top: 53px; z-index: 90;
     }
     nav::-webkit-scrollbar { display: none; }
     .nav-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      padding: 0 8px;
+      max-width: 1280px; margin: 0 auto;
+      display: flex; padding: 0 8px;
     }
     .tab-btn {
-      display: block;
-      padding: 12px 16px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-muted);
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-      white-space: nowrap;
-      letter-spacing: .03em;
-      transition: color .2s, border-color .2s;
-      font-family: inherit;
+      padding: 12px 16px; font-size: 12px; font-weight: 500;
+      color: var(--text-muted); background: none; border: none;
+      border-bottom: 2px solid transparent; cursor: pointer;
+      white-space: nowrap; letter-spacing: .03em;
+      transition: color .18s, border-color .18s; font-family: inherit;
     }
     .tab-btn:hover { color: var(--text-secondary); }
-    .tab-btn.active {
-      color: var(--text-primary);
-      border-bottom-color: var(--text-primary);
-      font-weight: 700;
-    }
+    .tab-btn.active { color: var(--text-primary); border-bottom-color: var(--text-primary); font-weight: 700; }
 
     /* ── メイン ── */
-    main { max-width: 1280px; margin: 0 auto; padding: 24px 16px 40px; }
+    main { max-width: 1280px; margin: 0 auto; padding: 24px 16px 48px; }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
-
-    /* ── セクション ── */
     .section-header {
       display: flex; align-items: baseline; gap: 10px;
-      margin-bottom: 16px; padding-bottom: 10px;
+      margin-bottom: 18px; padding-bottom: 10px;
       border-bottom: 2px solid var(--text-primary);
     }
     .section-title { font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
-    .section-subtitle { font-size: 11px; color: var(--text-muted); font-weight: 300; }
+    .section-sub { font-size: 11px; color: var(--text-muted); font-weight: 300; }
 
     /* ── カードグリッド ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
     }
 
-    /* ── データカード ── */
+    /* ── エリアチャートカード ── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 18px 10px;
+      padding: 14px 16px 12px;
       box-shadow: var(--shadow);
+      height: 260px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
       transition: box-shadow .2s;
     }
     .card:hover { box-shadow: var(--shadow-md); }
-    .card-label {
-      font-size: 11px; color: var(--text-muted); font-weight: 400;
-      letter-spacing: .06em; text-transform: uppercase;
-      margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+
+    /* ヘッダー行 */
+    .card-top {
+      display: flex; align-items: center; gap: 6px;
+      flex-shrink: 0; margin-bottom: 4px;
     }
     .flag { font-size: 14px; line-height: 1; }
-    .card-value {
-      font-size: 22px; font-weight: 700; letter-spacing: -.03em;
-      color: var(--text-primary); line-height: 1.1; margin-bottom: 6px;
+    .card-icon {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #ebebeb; display: inline-flex;
+      align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 700; color: var(--text-secondary);
+      flex-shrink: 0; letter-spacing: -.02em;
     }
-    .card-value.small { font-size: 17px; }
-    .card-change {
-      font-size: 12px; font-weight: 500;
-      display: flex; align-items: center; gap: 4px;
+    .card-name {
+      font-size: 11px; color: var(--text-muted); font-weight: 400;
+      letter-spacing: .05em; text-transform: uppercase;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .card-change.up { color: var(--up); font-weight: 700; }
-    .card-change.down { color: var(--down); font-weight: 400; }
-    .card-meta {
-      font-size: 10px; color: var(--text-muted); margin-top: 4px; font-weight: 300;
-    }
-    .card-spark {
-      margin-top: 8px;
-      height: 50px;
-      position: relative;
-    }
-    .card-spark canvas { width: 100% !important; height: 50px !important; }
 
-    /* ── 仮想通貨カード ── */
-    .crypto-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 12px;
+    /* 変化率 大表示 */
+    .card-pct {
+      font-size: 34px; font-weight: 700;
+      letter-spacing: -.04em; line-height: 1;
+      flex-shrink: 0; margin-bottom: 6px;
     }
-    .crypto-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 18px 10px;
-      box-shadow: var(--shadow);
-      transition: box-shadow .2s;
+    .card-pct.up   { color: #111; }
+    .card-pct.down { color: #888; }
+    .card-pct.na   { color: #ccc; font-size: 28px; }
+
+    /* チャートエリア */
+    .card-chart {
+      flex: 1; position: relative; min-height: 0;
     }
-    .crypto-card:hover { box-shadow: var(--shadow-md); }
-    .crypto-top { display: flex; align-items: center; gap: 12px; }
-    .crypto-icon {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: #f0f0f0; display: flex; align-items: center;
-      justify-content: center; font-size: 16px; flex-shrink: 0;
-      font-weight: 700; color: var(--text-secondary); letter-spacing: -.03em;
+    .card-chart canvas {
+      position: absolute !important;
+      top: 0 !important; left: 0 !important;
+      width: 100% !important; height: 100% !important;
     }
-    .crypto-info { flex: 1; min-width: 0; }
-    .crypto-name { font-size: 13px; font-weight: 600; }
-    .crypto-symbol { font-size: 10px; color: var(--text-muted); font-weight: 300; }
-    .crypto-right { text-align: right; flex-shrink: 0; }
-    .crypto-price { font-size: 15px; font-weight: 700; }
-    .crypto-change { font-size: 12px; font-weight: 500; }
-    .crypto-cap { font-size: 10px; color: var(--text-muted); font-weight: 300; margin-top: 1px; }
-    .crypto-spark { margin-top: 8px; height: 50px; position: relative; }
-    .crypto-spark canvas { width: 100% !important; height: 50px !important; }
+    .card-chart.no-data {
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 11px;
+    }
+
+    /* フッター行 */
+    .card-footer {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-top: 8px; padding-top: 8px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .card-price { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .card-price small { font-size: 10px; font-weight: 300; color: var(--text-muted); margin-left: 2px; }
+    .card-abs { font-size: 11px; font-weight: 500; }
+    .card-abs.up   { color: #111; font-weight: 700; }
+    .card-abs.down { color: #888; }
+    .card-abs.na   { color: #ccc; }
 
     /* ── スケルトン ── */
     .skeleton-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
     }
-    .skeleton-card {
+    .skel-card {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow);
+      border-radius: var(--radius); padding: 14px 16px 12px;
+      height: 260px; display: flex; flex-direction: column; gap: 8px;
     }
     .skel {
       background: var(--skeleton); border-radius: 4px;
-      position: relative; overflow: hidden;
+      position: relative; overflow: hidden; flex-shrink: 0;
     }
     .skel::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(90deg, transparent 0%, var(--skeleton-shine) 50%, transparent 100%);
+      background: linear-gradient(90deg, transparent, var(--skeleton-shine), transparent);
       animation: shimmer 1.4s infinite;
     }
     @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
-    .skel-label { height: 10px; width: 60%; margin-bottom: 10px; }
-    .skel-value { height: 24px; width: 70%; margin-bottom: 8px; }
-    .skel-change { height: 12px; width: 40%; margin-bottom: 8px; }
-    .skel-spark { height: 50px; width: 100%; }
+    .skel-sm   { height: 10px; width: 50%; }
+    .skel-lg   { height: 38px; width: 55%; }
+    .skel-fill { flex: 1; }
+    .skel-foot { height: 28px; }
 
     /* ── エラー ── */
     .error-box {
       background: var(--surface); border: 1px dashed var(--border-dark);
-      border-radius: var(--radius); padding: 24px;
+      border-radius: var(--radius); padding: 28px;
       text-align: center; color: var(--text-muted); font-size: 13px;
     }
-    .error-box p { margin-bottom: 4px; }
-    .error-detail { font-size: 11px; color: #bbb; }
+    .error-detail { font-size: 11px; color: #c0c0c0; margin-top: 4px; }
 
     /* ── フッター ── */
     footer {
-      background: var(--header-bg); color: #777;
-      padding: 24px; font-size: 11px; line-height: 1.8;
+      background: var(--header-bg); color: #666;
+      padding: 22px 24px; font-size: 11px; line-height: 1.9;
     }
-    .footer-inner {
-      max-width: 1280px; margin: 0 auto;
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    footer a { color: #999; text-decoration: none; }
-    footer a:hover { color: #ccc; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    footer a { color: #888; text-decoration: none; }
+    footer a:hover { color: #bbb; }
 
     /* ── レスポンシブ ── */
     @media (max-width: 600px) {
       header { padding: 12px 16px; }
-      nav { top: 48px; }
+      nav { top: 47px; }
       .site-title { font-size: 15px; }
       .last-update { display: none; }
-      main { padding: 16px 12px 32px; }
-      .card-grid, .crypto-grid, .skeleton-grid { grid-template-columns: 1fr 1fr; }
-      .card-value { font-size: 18px; }
+      main { padding: 16px 12px 36px; }
+      .card-grid, .skeleton-grid { grid-template-columns: 1fr; }
+      .card { height: 240px; }
+      .card-pct { font-size: 28px; }
       .tab-btn { padding: 10px 12px; font-size: 11px; }
-    }
-    @media (max-width: 420px) {
-      .card-grid, .crypto-grid, .skeleton-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -308,15 +266,15 @@
       <div class="site-subtitle">Global Market Dashboard</div>
     </div>
     <div class="header-meta">
-      <div class="last-update">最終更新: <span id="last-update-time">--</span></div>
+      <div class="last-update">最終更新: <span id="ts">--</span></div>
       <button class="refresh-btn" id="refresh-btn" onclick="manualRefresh()">
-        <span class="spin" id="refresh-spin">↻</span> 更新
+        <span class="spin">↻</span> 更新
       </button>
     </div>
   </div>
 </header>
 
-<!-- タブナビゲーション -->
+<!-- タブナビ -->
 <nav>
   <div class="nav-inner">
     <button class="tab-btn active" data-tab="forex">為替レート</button>
@@ -333,47 +291,42 @@
   <div class="tab-panel active" id="panel-forex">
     <div class="section-header">
       <h2 class="section-title">為替レート</h2>
-      <span class="section-subtitle">Foreign Exchange</span>
+      <span class="section-sub">Foreign Exchange</span>
     </div>
     <div id="forex-content"></div>
   </div>
-
   <div class="tab-panel" id="panel-crypto">
     <div class="section-header">
       <h2 class="section-title">仮想通貨</h2>
-      <span class="section-subtitle">Cryptocurrency</span>
+      <span class="section-sub">Cryptocurrency — 7日間チャート</span>
     </div>
     <div id="crypto-content"></div>
   </div>
-
   <div class="tab-panel" id="panel-asia">
     <div class="section-header">
       <h2 class="section-title">日本・アジア株価指数</h2>
-      <span class="section-subtitle">Japan &amp; Asia Indices</span>
+      <span class="section-sub">Japan &amp; Asia Indices</span>
     </div>
     <div id="asia-content"></div>
   </div>
-
   <div class="tab-panel" id="panel-us">
     <div class="section-header">
       <h2 class="section-title">米国株価指数</h2>
-      <span class="section-subtitle">US Indices</span>
+      <span class="section-sub">US Indices</span>
     </div>
     <div id="us-content"></div>
   </div>
-
   <div class="tab-panel" id="panel-europe">
     <div class="section-header">
       <h2 class="section-title">欧州株価指数</h2>
-      <span class="section-subtitle">Europe Indices</span>
+      <span class="section-sub">Europe Indices</span>
     </div>
     <div id="europe-content"></div>
   </div>
-
   <div class="tab-panel" id="panel-commodity">
     <div class="section-header">
       <h2 class="section-title">商品</h2>
-      <span class="section-subtitle">Commodities</span>
+      <span class="section-sub">Commodities</span>
     </div>
     <div id="commodity-content"></div>
   </div>
@@ -384,7 +337,7 @@
   <div class="footer-inner">
     <div>&copy; 2025 世界の相場ダッシュボード &mdash; <a href="https://twitter.com/ito_money_ito" target="_blank" rel="noopener">@ito_money_ito</a></div>
     <div>【免責事項】当サイトのデータは参考情報です。投資判断は自己責任でお願いします。データは遅延している場合があります。</div>
-    <div>データソース: ExchangeRate-API / CoinGecko / Yahoo Finance</div>
+    <div>データソース: Yahoo Finance / CoinGecko</div>
   </div>
 </footer>
 
@@ -396,95 +349,77 @@
 <script>
 'use strict';
 
-/* ═══════════════════════════════════════
-   定数・設定
-═══════════════════════════════════════ */
-const CACHE_TTL = 600_000; // 10分
+/* ═══════════════════════════════════════════════
+   定数
+═══════════════════════════════════════════════ */
+const CACHE_TTL       = 600_000;
 const REFRESH_INTERVAL = 600_000;
-let refreshTimer = null;
+let   refreshTimer    = null;
+const cache           = {};    // { [tabId]: { data, timestamp } }
+const CI              = {};    // chartInstances: { [canvasId]: Chart }
 
-// データキャッシュ: { [tabId]: { data, timestamp } }
-const cache = {};
-// スパークラインキャッシュ: { [symbol]: { closes, timestamp } }
-const sparkCache = {};
-// Chart.jsインスタンス管理
-const chartInstances = {};
-
-let prevForexRates = null;
-
-/* ── データ定義 ── */
-
+/* ═══════════════════════════════════════════════
+   データ定義
+═══════════════════════════════════════════════ */
+// 為替: Yahoo Finance シンボルで統一 → quote + 5d/1d chart
 const FOREX_PAIRS = [
-  { label: 'USD / JPY', key: 'USD', unit: '円', desc: '米ドル / 日本円', base: 'JPY' },
-  { label: 'EUR / JPY', key: 'EUR', unit: '円', desc: 'ユーロ / 日本円', base: 'JPY' },
-  { label: 'GBP / JPY', key: 'GBP', unit: '円', desc: '英ポンド / 日本円', base: 'JPY' },
-  { label: 'AUD / JPY', key: 'AUD', unit: '円', desc: '豪ドル / 日本円', base: 'JPY' },
-  { label: 'EUR / USD', key: 'EUR', unit: '', desc: 'ユーロ / 米ドル', base: 'USD' },
-  { label: 'GBP / USD', key: 'GBP', unit: '', desc: '英ポンド / 米ドル', base: 'USD' },
-  { label: 'USD / CNY', key: 'CNY', unit: '元', desc: '米ドル / 人民元', base: 'CNY_FROM_USD' },
-  { label: 'USD / KRW', key: 'KRW', unit: '₩', desc: '米ドル / 韓国ウォン', base: 'KRW_FROM_USD' },
+  { label:'USD / JPY', symbol:'JPY=X',    unit:'円', desc:'米ドル/日本円'    },
+  { label:'EUR / JPY', symbol:'EURJPY=X', unit:'円', desc:'ユーロ/日本円'    },
+  { label:'GBP / JPY', symbol:'GBPJPY=X', unit:'円', desc:'英ポンド/日本円'  },
+  { label:'AUD / JPY', symbol:'AUDJPY=X', unit:'円', desc:'豪ドル/日本円'    },
+  { label:'EUR / USD', symbol:'EURUSD=X', unit:'',   desc:'ユーロ/米ドル'    },
+  { label:'GBP / USD', symbol:'GBPUSD=X', unit:'',   desc:'英ポンド/米ドル'  },
+  { label:'USD / CNY', symbol:'CNY=X',    unit:'元', desc:'米ドル/人民元'    },
+  { label:'USD / KRW', symbol:'KRW=X',    unit:'₩',  desc:'米ドル/韓国ウォン'},
 ];
-
-// 為替Yahoo Financeシンボル（スパークライン用）
-const FOREX_SPARK_MAP = {
-  'USD/JPY': 'JPY=X', 'EUR/JPY': 'EURJPY=X', 'GBP/JPY': 'GBPJPY=X',
-  'AUD/JPY': 'AUDJPY=X', 'EUR/USD': 'EURUSD=X', 'GBP/USD': 'GBPUSD=X',
-  'USD/CNY': 'CNY=X', 'USD/KRW': 'KRW=X',
-};
 
 const CRYPTO_COINS = [
-  { id: 'bitcoin',     symbol: 'BTC',  icon: '₿' },
-  { id: 'ethereum',    symbol: 'ETH',  icon: 'Ξ' },
-  { id: 'ripple',      symbol: 'XRP',  icon: 'X' },
-  { id: 'solana',      symbol: 'SOL',  icon: 'S' },
-  { id: 'binancecoin', symbol: 'BNB',  icon: 'B' },
-  { id: 'cardano',     symbol: 'ADA',  icon: 'A' },
-  { id: 'dogecoin',    symbol: 'DOGE', icon: 'D' },
-  { id: 'avalanche-2', symbol: 'AVAX', icon: 'Av' },
+  { id:'bitcoin',     symbol:'BTC',  icon:'₿'  },
+  { id:'ethereum',    symbol:'ETH',  icon:'Ξ'  },
+  { id:'ripple',      symbol:'XRP',  icon:'X'  },
+  { id:'solana',      symbol:'SOL',  icon:'S'  },
+  { id:'binancecoin', symbol:'BNB',  icon:'B'  },
+  { id:'cardano',     symbol:'ADA',  icon:'A'  },
+  { id:'dogecoin',    symbol:'DOGE', icon:'D'  },
+  { id:'avalanche-2', symbol:'AVAX', icon:'Av' },
 ];
 
-// 仮想通貨Yahoo Financeシンボル（スパークライン用）
-const CRYPTO_SPARK_MAP = {
-  'BTC': 'BTC-USD', 'ETH': 'ETH-USD', 'XRP': 'XRP-USD', 'SOL': 'SOL-USD',
-  'BNB': 'BNB-USD', 'ADA': 'ADA-USD', 'DOGE': 'DOGE-USD', 'AVAX': 'AVAX-USD',
-};
-
 const ASIA_INDICES = [
-  { symbol: '^N225',     name: '日経 225',     flag: '🇯🇵' },
-  { symbol: '^TOPX',     name: 'TOPIX',        flag: '🇯🇵' },
-  { symbol: '000001.SS', name: '上海総合',     flag: '🇨🇳' },
-  { symbol: '^HSI',      name: '香港ハンセン', flag: '🇭🇰' },
-  { symbol: '^KS11',     name: 'KOSPI',        flag: '🇰🇷' },
-  { symbol: '^TWII',     name: '台湾加権',     flag: '🇹🇼' },
-  { symbol: '^BSESN',    name: 'SENSEX',       flag: '🇮🇳' },
+  { symbol:'^N225',     name:'日経 225',     flag:'🇯🇵' },
+  { symbol:'^TOPX',     name:'TOPIX',        flag:'🇯🇵' },
+  { symbol:'000001.SS', name:'上海総合',     flag:'🇨🇳' },
+  { symbol:'^HSI',      name:'香港ハンセン', flag:'🇭🇰' },
+  { symbol:'^KS11',     name:'KOSPI',        flag:'🇰🇷' },
+  { symbol:'^TWII',     name:'台湾加権',     flag:'🇹🇼' },
+  { symbol:'^BSESN',    name:'SENSEX',       flag:'🇮🇳' },
 ];
 
 const US_INDICES = [
-  { symbol: '^DJI',  name: 'NYダウ',       flag: '🇺🇸' },
-  { symbol: '^GSPC', name: 'S&P 500',      flag: '🇺🇸' },
-  { symbol: '^IXIC', name: 'ナスダック',    flag: '🇺🇸' },
-  { symbol: '^RUT',  name: 'Russell 2000',  flag: '🇺🇸' },
-  { symbol: '^VIX',  name: 'VIX（恐怖指数）', flag: '🇺🇸' },
+  { symbol:'^DJI',  name:'NYダウ',        flag:'🇺🇸' },
+  { symbol:'^GSPC', name:'S&P 500',       flag:'🇺🇸' },
+  { symbol:'^IXIC', name:'ナスダック',    flag:'🇺🇸' },
+  { symbol:'^RUT',  name:'Russell 2000',  flag:'🇺🇸' },
+  { symbol:'^VIX',  name:'VIX 恐怖指数', flag:'🇺🇸' },
 ];
 
 const EU_INDICES = [
-  { symbol: '^GDAXI',    name: 'ドイツ DAX',       flag: '🇩🇪' },
-  { symbol: '^FTSE',     name: 'イギリス FTSE 100', flag: '🇬🇧' },
-  { symbol: '^FCHI',     name: 'フランス CAC 40',   flag: '🇫🇷' },
-  { symbol: '^STOXX50E', name: 'EURO STOXX 50',     flag: '🇪🇺' },
+  { symbol:'^GDAXI',    name:'ドイツ DAX',      flag:'🇩🇪' },
+  { symbol:'^FTSE',     name:'イギリス FTSE 100',flag:'🇬🇧' },
+  { symbol:'^FCHI',     name:'フランス CAC 40', flag:'🇫🇷' },
+  { symbol:'^STOXX50E', name:'EURO STOXX 50',   flag:'🇪🇺' },
 ];
 
 const COMMODITIES = [
-  { symbol: 'GC=F', name: '金（ゴールド）', unit: 'USD/oz' },
-  { symbol: 'CL=F', name: '原油（WTI）',    unit: 'USD/bbl' },
-  { symbol: 'SI=F', name: '銀',             unit: 'USD/oz' },
-  { symbol: 'NG=F', name: '天然ガス',       unit: 'USD/MMBtu' },
-  { symbol: 'HG=F', name: '銅',             unit: 'USD/lb' },
+  { symbol:'GC=F', name:'金（ゴールド）', unit:'USD/oz'    },
+  { symbol:'CL=F', name:'原油（WTI）',    unit:'USD/bbl'   },
+  { symbol:'SI=F', name:'銀',             unit:'USD/oz'    },
+  { symbol:'NG=F', name:'天然ガス',       unit:'USD/MMBtu' },
+  { symbol:'HG=F', name:'銅',             unit:'USD/lb'    },
 ];
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    ユーティリティ
-═══════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 function fmt(n, d = 2) {
   if (n == null || isNaN(n)) return '--';
   return n.toLocaleString('ja-JP', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -496,118 +431,112 @@ function fmtLarge(n) {
   if (n >= 1e6)  return (n / 1e6).toFixed(2) + 'M';
   return n.toLocaleString();
 }
-function chgCls(v) { return v >= 0 ? 'up' : 'down'; }
-function chgArr(v) { return v >= 0 ? '▲' : '▼'; }
-function fmtChg(v, d = 2) {
+function signFmt(v, d = 2) {
   if (v == null || isNaN(v)) return '--';
   return (v >= 0 ? '+' : '') + v.toFixed(d);
 }
 function updateTimestamp() {
-  const el = document.getElementById('last-update-time');
-  if (!el) return;
-  el.textContent = new Date().toLocaleString('ja-JP', {
-    timeZone: 'Asia/Tokyo',
-    year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit',
+  const el = document.getElementById('ts');
+  if (el) el.textContent = new Date().toLocaleString('ja-JP', {
+    timeZone:'Asia/Tokyo', year:'numeric', month:'2-digit', day:'2-digit',
+    hour:'2-digit', minute:'2-digit',
   }) + ' JST';
 }
 function isCacheValid(key) {
   return cache[key] && (Date.now() - cache[key].timestamp < CACHE_TTL);
 }
-function isSparkCacheValid(sym) {
-  return sparkCache[sym] && (Date.now() - sparkCache[sym].timestamp < CACHE_TTL);
-}
 
-/* ── スケルトン生成 ── */
-function skeletonHtml(count, wide) {
-  const cls = wide ? 'crypto-grid' : 'card-grid';
-  const minW = wide ? 'minmax(300px,1fr)' : 'minmax(240px,1fr)';
-  return `<div class="skeleton-grid" style="grid-template-columns:repeat(auto-fill,${minW})">${
-    Array(count).fill(`<div class="skeleton-card">
-      <div class="skel skel-label"></div>
-      <div class="skel skel-value"></div>
-      <div class="skel skel-change"></div>
-      <div class="skel skel-spark"></div>
+/* ── スケルトン / エラー ── */
+function showSkeleton(tabId, count) {
+  const el = document.getElementById(`${tabId}-content`);
+  if (!el) return;
+  el.innerHTML = `<div class="skeleton-grid">${
+    Array(count).fill(`<div class="skel-card">
+      <div class="skel skel-sm"></div>
+      <div class="skel skel-lg"></div>
+      <div class="skel skel-fill"></div>
+      <div class="skel skel-foot"></div>
     </div>`).join('')
   }</div>`;
 }
-
-function showSkeleton(tabId, count, wide) {
-  const el = document.getElementById(`${tabId}-content`);
-  if (el) el.innerHTML = skeletonHtml(count, wide);
-}
-
 function showError(tabId, msg, detail = '') {
   const el = document.getElementById(`${tabId}-content`);
-  if (!el) return;
-  el.innerHTML = `<div class="error-box"><p>${msg}</p>${detail ? `<p class="error-detail">${detail}</p>` : ''}</div>`;
+  if (el) el.innerHTML = `<div class="error-box"><p>${msg}</p>${detail ? `<p class="error-detail">${detail}</p>` : ''}</div>`;
 }
 
-/* ═══════════════════════════════════════
-   Yahoo Finance データ取得共通
-═══════════════════════════════════════ */
+/* ── チャートインスタンス破棄 ── */
+function destroyCharts(prefix) {
+  for (const id of Object.keys(CI)) {
+    if (id.startsWith(prefix)) {
+      CI[id].destroy();
+      delete CI[id];
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Yahoo Finance フェッチ (CORS proxy fallback)
+═══════════════════════════════════════════════ */
 async function yfetch(url) {
-  const direct = url;
-  const proxy = `https://corsproxy.io/?${encodeURIComponent(url)}`;
-  for (const u of [direct, proxy]) {
+  for (const u of [url, `https://corsproxy.io/?${encodeURIComponent(url)}`]) {
     try {
       const r = await fetch(u, { cache: 'no-store' });
-      if (!r.ok) continue;
-      return await r.json();
-    } catch (e) { /* next */ }
+      if (r.ok) return await r.json();
+    } catch (_) { /* try next */ }
   }
   return null;
 }
 
-async function fetchYFQuote(symbol) {
+// 現在値 + 前日終値
+async function fetchQuote(symbol) {
   const enc = encodeURIComponent(symbol);
-  const json = await yfetch(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?interval=1d&range=2d`);
-  const meta = json?.chart?.result?.[0]?.meta;
-  if (!meta) return null;
+  const j = await yfetch(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?interval=1d&range=2d`);
+  const m = j?.chart?.result?.[0]?.meta;
+  if (!m) return null;
   return {
-    price: meta.regularMarketPrice,
-    prev: meta.previousClose ?? meta.chartPreviousClose,
-    currency: meta.currency,
+    price: m.regularMarketPrice,
+    prev:  m.previousClose ?? m.chartPreviousClose,
   };
 }
 
-async function fetchSparkData(symbol) {
-  if (isSparkCacheValid(symbol)) return sparkCache[symbol].closes;
+// チャートデータ（終値配列）
+async function fetchCloses(symbol, range, interval) {
   const enc = encodeURIComponent(symbol);
-  const json = await yfetch(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?interval=1d&range=5d`);
-  const result = json?.chart?.result?.[0];
-  if (!result) return null;
-  const closes = result.indicators?.quote?.[0]?.close;
-  if (!closes || !closes.length) return null;
-  const filtered = closes.filter(v => v != null);
-  sparkCache[symbol] = { closes: filtered, timestamp: Date.now() };
-  return filtered;
+  const j = await yfetch(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?range=${range}&interval=${interval}`);
+  const raw = j?.chart?.result?.[0]?.indicators?.quote?.[0]?.close;
+  if (!raw) return null;
+  return raw.filter(v => v != null);
 }
 
-/* ── スパークライン描画 ── */
-function drawSpark(canvasId, data) {
-  if (!data || data.length < 2) return;
+// 当日分足 → 失敗なら日足フォールバック（株・商品用）
+async function fetchIntraday(symbol) {
+  const intra = await fetchCloses(symbol, '1d', '5m');
+  if (intra && intra.length > 3) return intra;
+  return fetchCloses(symbol, '5d', '1d');
+}
+
+/* ═══════════════════════════════════════════════
+   エリアチャート描画
+═══════════════════════════════════════════════ */
+function drawArea(canvasId, prices, isDown) {
+  if (!prices || prices.length < 2) return false;
   const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  // 古いインスタンスを破棄
-  if (chartInstances[canvasId]) {
-    chartInstances[canvasId].destroy();
-    delete chartInstances[canvasId];
-  }
-  const isUp = data[data.length - 1] >= data[0];
-  const lineColor = isUp ? '#111' : '#999';
-  chartInstances[canvasId] = new Chart(canvas, {
+  if (!canvas) return false;
+  if (CI[canvasId]) { CI[canvasId].destroy(); delete CI[canvasId]; }
+
+  CI[canvasId] = new Chart(canvas, {
     type: 'line',
     data: {
-      labels: data.map((_, i) => i),
+      labels: prices.map((_, i) => i),
       datasets: [{
-        data: data,
-        borderColor: lineColor,
-        borderWidth: 1.5,
-        pointRadius: 0,
-        tension: 0.3,
-        fill: false,
-      }]
+        data: prices,
+        fill: true,
+        borderColor:     isDown ? '#888888' : '#111111',
+        borderWidth:     1.5,
+        backgroundColor: isDown ? 'rgba(150,150,150,0.15)' : 'rgba(30,30,30,0.10)',
+        pointRadius:     0,
+        tension:         0.3,
+      }],
     },
     options: {
       responsive: true,
@@ -615,347 +544,312 @@ function drawSpark(canvasId, data) {
       plugins: { legend: { display: false }, tooltip: { enabled: false } },
       scales: {
         x: { display: false },
-        y: { display: false },
+        y: {
+          display: true,
+          position: 'right',
+          border: { display: false },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          ticks: {
+            font: { size: 9 },
+            color: '#aaa',
+            maxTicksLimit: 4,
+            callback: v => v.toLocaleString('ja-JP', { maximumFractionDigits: 0 }),
+          },
+        },
       },
-      animation: { duration: 0 },
-    }
+      animation: false,
+    },
   });
+  return true;
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
+   カード HTML 生成（共通）
+═══════════════════════════════════════════════ */
+function buildCard({ chartId, topHtml, pct, priceHtml, absHtml, absClass }) {
+  const pctNum  = parseFloat(pct);
+  const pctOk   = !isNaN(pctNum);
+  const pctCls  = pctOk ? (pctNum >= 0 ? 'up' : 'down') : 'na';
+  const pctDisp = pctOk ? `${pctNum >= 0 ? '▲' : '▼'} ${Math.abs(pctNum).toFixed(2)}%` : '--';
+  return `<div class="card">
+    <div class="card-top">${topHtml}</div>
+    <div class="card-pct ${pctCls}">${pctDisp}</div>
+    <div class="card-chart" id="wrap-${chartId}"><canvas id="${chartId}"></canvas></div>
+    <div class="card-footer">
+      <span class="card-price">${priceHtml}</span>
+      <span class="card-abs ${absClass}">${absHtml}</span>
+    </div>
+  </div>`;
+}
+
+function renderGrid(tabId, cards) {
+  const el = document.getElementById(`${tabId}-content`);
+  if (el) el.innerHTML = `<div class="card-grid">${cards.join('')}</div>`;
+}
+
+/* ═══════════════════════════════════════════════
    為替レート
-═══════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 async function fetchForex() {
   if (isCacheValid('forex')) { renderForex(cache.forex.data); return; }
-  showSkeleton('forex', FOREX_PAIRS.length, false);
-  try {
-    // JPYベースとUSDベースの2つを並列取得
-    const [resJPY, resUSD] = await Promise.all([
-      fetch('https://open.er-api.com/v6/latest/JPY', { cache: 'no-store' }),
-      fetch('https://open.er-api.com/v6/latest/USD', { cache: 'no-store' }),
-    ]);
-    if (!resJPY.ok || !resUSD.ok) throw new Error('HTTP error');
-    const [dataJPY, dataUSD] = await Promise.all([resJPY.json(), resUSD.json()]);
-    if (dataJPY.result !== 'success' || dataUSD.result !== 'success') throw new Error('API error');
-    const combined = { jpyRates: dataJPY.rates, usdRates: dataUSD.rates };
-    cache.forex = { data: combined, timestamp: Date.now() };
-    renderForex(combined);
-  } catch (err) {
-    console.warn('[Forex]', err);
-    showError('forex', 'データを取得できませんでした', 'ExchangeRate-API に接続できません');
-  }
+  showSkeleton('forex', FOREX_PAIRS.length);
+  destroyCharts('fx-');
+
+  const [qRes, cRes] = await Promise.all([
+    Promise.allSettled(FOREX_PAIRS.map(p => fetchQuote(p.symbol))),
+    Promise.allSettled(FOREX_PAIRS.map(p => fetchCloses(p.symbol, '5d', '1d'))),
+  ]);
+  const data = {
+    quotes: qRes.map(r => r.status === 'fulfilled' ? r.value : null),
+    charts: cRes.map(r => r.status === 'fulfilled' ? r.value : null),
+  };
+  cache.forex = { data, timestamp: Date.now() };
+  renderForex(data);
 }
 
-function renderForex(data) {
-  const { jpyRates, usdRates } = data;
-  const el = document.getElementById('forex-content');
-  if (!el) return;
-
+function renderForex({ quotes, charts }) {
   const cards = FOREX_PAIRS.map((p, i) => {
-    let value = null;
-    if (p.base === 'JPY') {
-      // X/JPY = 1 / jpyRates[X]
-      value = jpyRates[p.key] ? 1 / jpyRates[p.key] : null;
-    } else if (p.base === 'USD') {
-      // X/USD: usdRates gives 1USD = Y X → X/USD = 1/usdRates[X]
-      value = usdRates[p.key] ? 1 / usdRates[p.key] : null;
-    } else if (p.base === 'CNY_FROM_USD') {
-      // USD/CNY = usdRates.CNY
-      value = usdRates.CNY ?? null;
-    } else if (p.base === 'KRW_FROM_USD') {
-      // USD/KRW = usdRates.KRW
-      value = usdRates.KRW ?? null;
-    }
+    const q      = quotes[i];
+    const price  = q?.price;
+    const prev   = q?.prev;
+    const change = price != null && prev ? price - prev : null;
+    const pct    = price != null && prev ? ((price - prev) / prev) * 100 : null;
+    const isDown = pct != null && pct < 0;
 
-    let change = null;
-    const cacheKey = `forex_prev_${p.label}`;
-    if (prevForexRates && prevForexRates[cacheKey] != null && value != null) {
-      change = value - prevForexRates[cacheKey];
-    }
-    if (!prevForexRates) prevForexRates = {};
-    if (value != null) prevForexRates[cacheKey] = value;
+    // 桁数
+    const krw    = p.symbol === 'KRW=X';
+    const d      = krw ? 0 : price != null && price < 10 ? 4 : 2;
 
-    const decimals = (p.base === 'KRW_FROM_USD') ? 0 : (value && value > 100 ? 2 : 4);
-    const sparkId = `spark-forex-${i}`;
-    const sparkKey = p.label.replace(/ /g, '').replace('/', '');
+    const absVal  = change != null ? Math.abs(change).toFixed(d) : '--';
+    const absSign = change != null ? (change >= 0 ? '+' : '−') : '';
+    const absHtml = change != null ? `${absSign}${absVal}` : '--';
 
-    const changeHtml = change != null
-      ? `<span class="card-change ${chgCls(change)}">${chgArr(change)} ${fmtChg(change, decimals > 2 ? 4 : 2)}</span>`
-      : `<span class="card-change" style="color:var(--text-muted)">— 前日比取得中</span>`;
+    const priceHtml = price != null
+      ? `${fmt(price, d)}${p.unit ? ` <small>${p.unit}</small>` : ''}`
+      : '--';
 
-    return `<div class="card">
-      <div class="card-label">${p.label}</div>
-      <div class="card-value">${value != null ? fmt(value, decimals) : '--'}${p.unit ? ` <small style="font-size:12px;font-weight:400;color:var(--text-muted)">${p.unit}</small>` : ''}</div>
-      ${changeHtml}
-      <div class="card-meta">${p.desc}</div>
-      <div class="card-spark"><canvas id="${sparkId}"></canvas></div>
-    </div>`;
+    const cid = `fx-${i}`;
+    const card = buildCard({
+      chartId:  cid,
+      topHtml:  `<span class="card-name">${p.label}</span>`,
+      pct:      pct,
+      priceHtml,
+      absHtml,
+      absClass: change != null ? (change >= 0 ? 'up' : 'down') : 'na',
+    });
+
+    // chart drawn after DOM insert
+    setTimeout(() => {
+      if (charts[i] && charts[i].length > 1) drawArea(cid, charts[i], isDown);
+      else {
+        const wrap = document.getElementById(`wrap-${cid}`);
+        if (wrap) { wrap.classList.add('no-data'); wrap.innerHTML = 'チャートデータなし'; }
+      }
+    }, 0);
+    return card;
   });
 
-  el.innerHTML = `<div class="card-grid">${cards.join('')}</div>`;
-
-  // スパークライン取得
-  FOREX_PAIRS.forEach((p, i) => {
-    const ySymbol = FOREX_SPARK_MAP[p.label.replace(/ /g, '').replace('/', '/')
-      .replace('USD/JPY', 'USD/JPY').replace('EUR/JPY', 'EUR/JPY')
-      .replace('GBP/JPY', 'GBP/JPY').replace('AUD/JPY', 'AUD/JPY')
-      .replace('EUR/USD', 'EUR/USD').replace('GBP/USD', 'GBP/USD')
-      .replace('USD/CNY', 'USD/CNY').replace('USD/KRW', 'USD/KRW')];
-    const cleanLabel = p.label.replace(/ /g, '');
-    const sym = FOREX_SPARK_MAP[cleanLabel];
-    if (!sym) return;
-    fetchSparkData(sym).then(d => drawSpark(`spark-forex-${i}`, d)).catch(() => {});
-  });
+  renderGrid('forex', cards);
 }
 
-/* ═══════════════════════════════════════
-   仮想通貨
-═══════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   仮想通貨 (CoinGecko sparkline=true)
+═══════════════════════════════════════════════ */
 async function fetchCrypto() {
   if (isCacheValid('crypto')) { renderCrypto(cache.crypto.data); return; }
-  showSkeleton('crypto', CRYPTO_COINS.length, true);
+  showSkeleton('crypto', CRYPTO_COINS.length);
+  destroyCharts('cr-');
+
   const ids = CRYPTO_COINS.map(c => c.id).join(',');
   try {
-    const res = await fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}&order=market_cap_desc&per_page=20&page=1&sparkline=false&price_change_percentage=24h`,
+    const r = await fetch(
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}` +
+      `&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=24h`,
       { cache: 'no-store' }
     );
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
     cache.crypto = { data, timestamp: Date.now() };
     renderCrypto(data);
-  } catch (err) {
-    console.warn('[Crypto]', err);
+  } catch (e) {
+    console.warn('[Crypto]', e);
     showError('crypto', 'データを取得できませんでした', 'CoinGecko API に接続できません');
   }
 }
 
 function renderCrypto(coins) {
-  const el = document.getElementById('crypto-content');
-  if (!el) return;
   const coinMap = {};
   coins.forEach(c => { coinMap[c.id] = c; });
 
   const cards = CRYPTO_COINS.map((def, i) => {
-    const c = coinMap[def.id];
-    if (!c) return `<div class="crypto-card"><div class="crypto-top"><div class="crypto-icon">${def.icon}</div><div class="crypto-info"><div class="crypto-name">${def.symbol}</div></div><div class="crypto-right"><div class="crypto-price">--</div></div></div></div>`;
-    const chg = c.price_change_percentage_24h;
-    const chgHtml = chg != null
-      ? `<div class="crypto-change ${chgCls(chg)}">${chgArr(chg)} ${fmtChg(chg)}%</div>`
-      : `<div class="crypto-change" style="color:var(--text-muted)">--</div>`;
-    const price = c.current_price;
-    const priceStr = price >= 1 ? '$' + fmt(price, price >= 100 ? 0 : 2) : '$' + price.toFixed(4);
-    const sparkId = `spark-crypto-${i}`;
+    const c      = coinMap[def.id];
+    const price  = c?.current_price;
+    const pct    = c?.price_change_percentage_24h;
+    const change = c?.price_change_24h;
+    const spark  = c?.sparkline_in_7d?.price;
+    const isDown = pct != null && pct < 0;
 
-    return `<div class="crypto-card">
-      <div class="crypto-top">
-        <div class="crypto-icon">${def.icon}</div>
-        <div class="crypto-info">
-          <div class="crypto-name">${c.name}</div>
-          <div class="crypto-symbol">${def.symbol}</div>
-        </div>
-        <div class="crypto-right">
-          <div class="crypto-price">${priceStr}</div>
-          ${chgHtml}
-          <div class="crypto-cap">時価総額 $${fmtLarge(c.market_cap)}</div>
-        </div>
-      </div>
-      <div class="crypto-spark"><canvas id="${sparkId}"></canvas></div>
-    </div>`;
+    const priceStr = price != null
+      ? (price >= 1 ? '$' + fmt(price, price >= 100 ? 0 : 2) : '$' + price.toFixed(4))
+      : '--';
+    const absVal  = change != null ? Math.abs(change) : null;
+    const absStr  = absVal != null
+      ? `${change >= 0 ? '+' : '−'}$${absVal >= 1 ? fmt(absVal, absVal >= 100 ? 0 : 2) : absVal.toFixed(4)}`
+      : '--';
+
+    const cid  = `cr-${i}`;
+    const card = buildCard({
+      chartId:  cid,
+      topHtml:  `<span class="card-icon">${def.icon}</span><span class="card-name">${c?.name ?? def.symbol}</span>`,
+      pct:      pct,
+      priceHtml: priceStr,
+      absHtml:  absStr,
+      absClass: change != null ? (change >= 0 ? 'up' : 'down') : 'na',
+    });
+
+    setTimeout(() => {
+      const sparkFiltered = spark?.filter(v => v != null);
+      if (sparkFiltered && sparkFiltered.length > 2) drawArea(cid, sparkFiltered, isDown);
+      else {
+        const wrap = document.getElementById(`wrap-${cid}`);
+        if (wrap) { wrap.classList.add('no-data'); wrap.innerHTML = 'チャートデータなし'; }
+      }
+    }, 0);
+    return card;
   });
 
-  el.innerHTML = `<div class="crypto-grid">${cards.join('')}</div>`;
-
-  // スパークライン
-  CRYPTO_COINS.forEach((def, i) => {
-    const sym = CRYPTO_SPARK_MAP[def.symbol];
-    if (!sym) return;
-    fetchSparkData(sym).then(d => drawSpark(`spark-crypto-${i}`, d)).catch(() => {});
-  });
+  renderGrid('crypto', cards);
 }
 
-/* ═══════════════════════════════════════
-   株価指数共通 (Asia / US / Europe)
-═══════════════════════════════════════ */
-async function fetchIndices(tabId, indices) {
+/* ═══════════════════════════════════════════════
+   株価指数・商品（汎用）
+═══════════════════════════════════════════════ */
+async function loadIndexTab(tabId, indices, forex = false) {
   if (isCacheValid(tabId)) { renderIndices(tabId, indices, cache[tabId].data); return; }
-  showSkeleton(tabId, indices.length, false);
+  showSkeleton(tabId, indices.length);
+  destroyCharts(`${tabId}-`);
 
-  const results = await Promise.allSettled(indices.map(idx => fetchYFQuote(idx.symbol)));
-  const data = results.map(r => r.status === 'fulfilled' ? r.value : null);
+  const [qRes, cRes] = await Promise.all([
+    Promise.allSettled(indices.map(idx => fetchQuote(idx.symbol))),
+    Promise.allSettled(indices.map(idx =>
+      forex
+        ? fetchCloses(idx.symbol, '5d', '1d')
+        : fetchIntraday(idx.symbol)
+    )),
+  ]);
+  const data = {
+    quotes: qRes.map(r => r.status === 'fulfilled' ? r.value : null),
+    charts: cRes.map(r => r.status === 'fulfilled' ? r.value : null),
+  };
   cache[tabId] = { data, timestamp: Date.now() };
   renderIndices(tabId, indices, data);
 }
 
-function renderIndices(tabId, indices, data) {
-  const el = document.getElementById(`${tabId}-content`);
-  if (!el) return;
-
-  // 全部nullならエラー表示
-  if (data.every(d => d == null)) {
-    showError(tabId, 'データを取得できませんでした', 'Yahoo Finance に接続できません。CORSプロキシが利用不可の可能性があります。');
+function renderIndices(tabId, indices, { quotes, charts }) {
+  if (quotes.every(q => q == null)) {
+    showError(tabId, 'データを取得できませんでした', 'Yahoo Finance / CORS プロキシに接続できません');
     return;
   }
 
   const cards = indices.map((idx, i) => {
-    const d = data[i];
-    const sparkId = `spark-${tabId}-${i}`;
+    const q      = quotes[i];
+    const price  = q?.price;
+    const prev   = q?.prev;
+    const change = price != null && prev ? price - prev : null;
+    const pct    = price != null && prev ? ((price - prev) / prev) * 100 : null;
+    const isDown = pct != null && pct < 0;
 
-    if (!d || d.price == null) {
-      return `<div class="card">
-        <div class="card-label">${idx.flag ? `<span class="flag">${idx.flag}</span> ` : ''}${idx.name}</div>
-        <div class="card-value">--</div>
-        <div class="card-change" style="color:var(--text-muted)">データ取得不可</div>
-      </div>`;
-    }
+    const d       = price != null && price < 100 ? 2 : 0;
+    const absVal  = change != null ? Math.abs(change) : null;
+    const absStr  = absVal != null
+      ? `${change >= 0 ? '+' : '−'}${fmt(absVal, d)}`
+      : '--';
+    const unitSfx = idx.unit ? ` <small>${idx.unit}</small>` : '';
+    const priceHtml = price != null ? `${fmt(price, d)}${unitSfx}` : '--';
+    const topHtml   = idx.flag
+      ? `<span class="flag">${idx.flag}</span><span class="card-name">${idx.name}</span>`
+      : `<span class="card-name">${idx.name}</span>`;
 
-    const { price, prev } = d;
-    const change = prev ? price - prev : null;
-    const changePct = prev ? ((price - prev) / prev) * 100 : null;
-    const decimals = price < 100 ? 2 : 0;
-    const unitStr = idx.unit ? ` <small style="font-size:11px;font-weight:400;color:var(--text-muted)">${idx.unit}</small>` : '';
+    const cid  = `${tabId}-${i}`;
+    const card = buildCard({
+      chartId: cid, topHtml, pct, priceHtml, absHtml: absStr,
+      absClass: change != null ? (change >= 0 ? 'up' : 'down') : 'na',
+    });
 
-    const changeHtml = change != null
-      ? `<span class="card-change ${chgCls(change)}">${chgArr(change)} ${fmtChg(change, decimals)} (${fmtChg(changePct)}%)</span>`
-      : `<span class="card-change" style="color:var(--text-muted)">--</span>`;
-
-    return `<div class="card">
-      <div class="card-label">${idx.flag ? `<span class="flag">${idx.flag}</span> ` : ''}${idx.name}</div>
-      <div class="card-value ${price > 9999 ? 'small' : ''}">${fmt(price, decimals)}${unitStr}</div>
-      ${changeHtml}
-      <div class="card-spark"><canvas id="${sparkId}"></canvas></div>
-    </div>`;
+    setTimeout(() => {
+      if (charts[i] && charts[i].length > 1) drawArea(cid, charts[i], isDown);
+      else {
+        const wrap = document.getElementById(`wrap-${cid}`);
+        if (wrap) { wrap.classList.add('no-data'); wrap.innerHTML = 'チャートデータなし'; }
+      }
+    }, 0);
+    return card;
   });
 
-  el.innerHTML = `<div class="card-grid">${cards.join('')}</div>`;
-
-  // スパークライン
-  indices.forEach((idx, i) => {
-    fetchSparkData(idx.symbol).then(d => drawSpark(`spark-${tabId}-${i}`, d)).catch(() => {});
-  });
+  renderGrid(tabId, cards);
 }
 
-/* ═══════════════════════════════════════
-   商品
-═══════════════════════════════════════ */
-async function fetchCommodities() {
-  if (isCacheValid('commodity')) { renderIndices('commodity', COMMODITIES, cache.commodity.data); return; }
-  showSkeleton('commodity', COMMODITIES.length, false);
-
-  const results = await Promise.allSettled(COMMODITIES.map(c => fetchYFQuote(c.symbol)));
-  const data = results.map(r => r.status === 'fulfilled' ? r.value : null);
-  cache.commodity = { data, timestamp: Date.now() };
-  renderIndices('commodity', COMMODITIES, data);
-}
-
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    タブ切り替え
-═══════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 const TAB_LOADERS = {
   forex:     () => fetchForex(),
   crypto:    () => fetchCrypto(),
-  asia:      () => fetchIndices('asia', ASIA_INDICES),
-  us:        () => fetchIndices('us', US_INDICES),
-  europe:    () => fetchIndices('europe', EU_INDICES),
-  commodity: () => fetchCommodities(),
+  asia:      () => loadIndexTab('asia', ASIA_INDICES),
+  us:        () => loadIndexTab('us', US_INDICES),
+  europe:    () => loadIndexTab('europe', EU_INDICES),
+  commodity: () => loadIndexTab('commodity', COMMODITIES),
 };
 
-// タブが一度でも読み込まれたか
-const tabLoaded = {};
+function switchTab(tabId, forceReload = false) {
+  const validTabs = Object.keys(TAB_LOADERS);
+  if (!validTabs.includes(tabId)) tabId = 'forex';
 
-function switchTab(tabId, skipLoad) {
-  // パネル切り替え
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  const panel = document.getElementById(`panel-${tabId}`);
-  const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
-  if (panel) panel.classList.add('active');
-  if (btn) btn.classList.add('active');
-
-  // URL更新
+  document.getElementById(`panel-${tabId}`)?.classList.add('active');
+  document.querySelector(`.tab-btn[data-tab="${tabId}"]`)?.classList.add('active');
   history.replaceState(null, '', `#${tabId}`);
 
-  // データ取得（初回 or キャッシュ期限切れ）
-  if (!skipLoad) {
-    const loader = TAB_LOADERS[tabId];
-    if (loader) {
-      loader().then(() => {
-        tabLoaded[tabId] = true;
-        updateTimestamp();
-      });
-    }
-  }
+  if (forceReload) delete cache[tabId];
+  TAB_LOADERS[tabId]().then(updateTimestamp);
 }
 
-// タブクリック
-document.querySelector('.nav-inner').addEventListener('click', (e) => {
+document.querySelector('.nav-inner').addEventListener('click', e => {
   const btn = e.target.closest('.tab-btn');
-  if (!btn) return;
-  const tabId = btn.dataset.tab;
-  switchTab(tabId);
+  if (btn) switchTab(btn.dataset.tab);
 });
 
-/* ═══════════════════════════════════════
-   手動更新
-═══════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   手動更新 / 自動更新
+═══════════════════════════════════════════════ */
 function manualRefresh() {
   const btn = document.getElementById('refresh-btn');
   if (btn) btn.classList.add('loading');
-
-  // アクティブタブのキャッシュをクリアして再取得
   const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'forex';
-  delete cache[activeTab];
-
-  const loader = TAB_LOADERS[activeTab];
-  if (loader) {
-    loader().then(() => {
-      updateTimestamp();
-    }).finally(() => {
-      if (btn) btn.classList.remove('loading');
-    });
-  } else {
-    if (btn) btn.classList.remove('loading');
-  }
+  switchTab(activeTab, true);
+  // ローディング解除: 最長2秒
+  setTimeout(() => { if (btn) btn.classList.remove('loading'); }, 2000);
 }
 
-/* ═══════════════════════════════════════
-   自動更新
-═══════════════════════════════════════ */
 function autoRefresh() {
-  // アクティブタブだけ自動更新
   const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'forex';
   delete cache[activeTab];
-  // スパークキャッシュも期限切れのものを削除
-  for (const key in sparkCache) {
-    if (Date.now() - sparkCache[key].timestamp >= CACHE_TTL) delete sparkCache[key];
-  }
-  const loader = TAB_LOADERS[activeTab];
-  if (loader) loader().then(() => updateTimestamp());
+  TAB_LOADERS[activeTab]().then(updateTimestamp);
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    初期化
-═══════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 function init() {
-  // URLハッシュからタブ決定
   const hash = location.hash.replace('#', '');
-  const validTabs = Object.keys(TAB_LOADERS);
-  const initialTab = validTabs.includes(hash) ? hash : 'forex';
-  switchTab(initialTab);
-
-  // 自動更新タイマー
+  switchTab(hash || 'forex');
   if (refreshTimer) clearInterval(refreshTimer);
   refreshTimer = setInterval(autoRefresh, REFRESH_INTERVAL);
 }
 
 window.addEventListener('DOMContentLoaded', init);
-
-// ハッシュ変更対応
-window.addEventListener('hashchange', () => {
-  const hash = location.hash.replace('#', '');
-  const validTabs = Object.keys(TAB_LOADERS);
-  if (validTabs.includes(hash)) switchTab(hash);
-});
+window.addEventListener('hashchange', () => switchTab(location.hash.replace('#', '')));
 </script>
 </body>
 </html>
