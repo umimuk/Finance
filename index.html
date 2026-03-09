@@ -277,11 +277,11 @@
 <!-- タブナビ -->
 <nav>
   <div class="nav-inner">
-    <button class="tab-btn active" data-tab="forex">為替レート</button>
-    <button class="tab-btn" data-tab="crypto">仮想通貨</button>
-    <button class="tab-btn" data-tab="asia">日本・アジア株</button>
+    <button class="tab-btn active" data-tab="asia">日本・アジア株</button>
     <button class="tab-btn" data-tab="us">米国株</button>
     <button class="tab-btn" data-tab="europe">欧州株</button>
+    <button class="tab-btn" data-tab="forex">為替レート</button>
+    <button class="tab-btn" data-tab="crypto">仮想通貨</button>
     <button class="tab-btn" data-tab="commodity">商品</button>
   </div>
 </nav>
@@ -860,7 +860,7 @@ function autoRefresh() {
 ═══════════════════════════════════════════════ */
 function init() {
   const hash = location.hash.replace('#', '');
-  switchTab(hash || 'forex');
+  switchTab(hash || 'asia');
   if (refreshTimer) clearInterval(refreshTimer);
   refreshTimer = setInterval(autoRefresh, REFRESH_INTERVAL);
 }
