@@ -518,25 +518,40 @@ async function fetchIntraday(symbol) {
 /* ═══════════════════════════════════════════════
    エリアチャート描画
 ═══════════════════════════════════════════════ */
-function drawArea(canvasId, prices, isDown) {
+function drawArea(canvasId, prices, isDown, prevClose = null) {
   if (!prices || prices.length < 2) return false;
   const canvas = document.getElementById(canvasId);
   if (!canvas) return false;
   if (CI[canvasId]) { CI[canvasId].destroy(); delete CI[canvasId]; }
 
+  const datasets = [{
+    data: prices,
+    fill: true,
+    borderColor:     isDown ? '#e07070' : '#4caf7d',
+    borderWidth:     1.5,
+    backgroundColor: isDown ? 'rgba(224,112,112,0.12)' : 'rgba(76,175,125,0.12)',
+    pointRadius:     0,
+    tension:         0.3,
+    order:           1,
+  }];
+
+  if (prevClose != null) {
+    datasets.push({
+      data:        Array(prices.length).fill(prevClose),
+      borderColor: 'rgba(180,60,60,0.7)',
+      borderWidth: 1,
+      fill:        false,
+      pointRadius: 0,
+      tension:     0,
+      order:       0,
+    });
+  }
+
   CI[canvasId] = new Chart(canvas, {
     type: 'line',
     data: {
       labels: prices.map((_, i) => i),
-      datasets: [{
-        data: prices,
-        fill: true,
-        borderColor:     isDown ? '#888888' : '#111111',
-        borderWidth:     1.5,
-        backgroundColor: isDown ? 'rgba(150,150,150,0.15)' : 'rgba(30,30,30,0.10)',
-        pointRadius:     0,
-        tension:         0.3,
-      }],
+      datasets,
     },
     options: {
       responsive: true,
@@ -640,7 +655,7 @@ function renderForex({ quotes, charts }) {
 
     // chart drawn after DOM insert
     setTimeout(() => {
-      if (charts[i] && charts[i].length > 1) drawArea(cid, charts[i], isDown);
+      if (charts[i] && charts[i].length > 1) drawArea(cid, charts[i], isDown, prev ?? null);
       else {
         const wrap = document.getElementById(`wrap-${cid}`);
         if (wrap) { wrap.classList.add('no-data'); wrap.innerHTML = 'チャートデータなし'; }
@@ -709,7 +724,9 @@ function renderCrypto(coins) {
 
     setTimeout(() => {
       const sparkFiltered = spark?.filter(v => v != null);
-      if (sparkFiltered && sparkFiltered.length > 2) drawArea(cid, sparkFiltered, isDown);
+      // 24時間前の価格を前日終値の代替として使用
+      const prevClose = price != null && change != null ? price - change : null;
+      if (sparkFiltered && sparkFiltered.length > 2) drawArea(cid, sparkFiltered, isDown, prevClose);
       else {
         const wrap = document.getElementById(`wrap-${cid}`);
         if (wrap) { wrap.classList.add('no-data'); wrap.innerHTML = 'チャートデータなし'; }
@@ -777,7 +794,7 @@ function renderIndices(tabId, indices, { quotes, charts }) {
     });
 
     setTimeout(() => {
-      if (charts[i] && charts[i].length > 1) drawArea(cid, charts[i], isDown);
+      if (charts[i] && charts[i].length > 1) drawArea(cid, charts[i], isDown, prev ?? null);
       else {
         const wrap = document.getElementById(`wrap-${cid}`);
         if (wrap) { wrap.classList.add('no-data'); wrap.innerHTML = 'チャートデータなし'; }
